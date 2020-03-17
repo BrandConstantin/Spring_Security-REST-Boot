@@ -2,6 +2,7 @@ package es.spring.security.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -15,11 +16,20 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// add our users for in memory authentication
 		UserBuilder users = User.withDefaultPasswordEncoder();
-		
-		auth.inMemoryAuthentication()
-			.withUser(users.username("john").password("test1").roles("EMPLOYEE"))
-			.withUser(users.username("mary").password("test2").roles("MANAGER"))
-			.withUser(users.username("suzzan").password("test3").roles("ADMIN"));
+
+		auth.inMemoryAuthentication().withUser(users.username("john").password("test1").roles("EMPLOYEE"));
+		auth.inMemoryAuthentication().withUser(users.username("test").password("test").roles("MANAGER"));
+		auth.inMemoryAuthentication().withUser(users.username("suzzan").password("test3").roles("ADMIN"));
 	}
-	
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().anyRequest().authenticated()
+			.and()
+			.formLogin()
+				.loginPage("/showLoginPage")
+				.loginProcessingUrl("/authenticateTheUser")
+				.permitAll();
+	}
+
 }

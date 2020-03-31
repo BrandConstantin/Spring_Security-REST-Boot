@@ -13,29 +13,30 @@
 	<hr>
 
 	<p>Welcome to the company home page!</p>
+	<hr />
+	<!-- all link to point to /leades (this is for the managers) -->
+	<security:authorize access="hasRole('MANAGER')">
+		<p>
+			<a href="${pageContext.request.contextPath}/leaders">LeaderShip
+				Meeting</a> (Only for Manager peeps)
+		</p>
+	</security:authorize>
+	<security:authorize access="hasRole('ADMIN')">
+		<p>
+			<a href="${pageContext.request.contextPath}/systems">Admin</a>
+		</p>
+	</security:authorize>
+	<hr>
 
 	<hr>
 
 	<!-- display user name and role -->
-
 	<p>
 		User:
 		<security:authentication property="principal.username" />
 		<br> <br> Role(s):
 		<security:authentication property="principal.authorities" />
 	</p>
-
-	<hr />
-	<!-- all link to point to /leades (this is for the managers) -->
-	<p>
-		<a href="${pageContext.request.contextPath}/leaders">LeaderShip
-			Meeting</a> (Only for Manager peeps)
-	</p>
-	<p>
-		<a href="${pageContext.request.contextPath}/systems">Admin</a>
-	</p>
-	<hr>
-
 
 	<!-- Add a logout button -->
 	<form:form action="${pageContext.request.contextPath}/logout"

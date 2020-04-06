@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.crud.spring.data.jpa.dao.EmployeeDAO;
 import es.crud.spring.data.jpa.entity.Employee;
 import es.crud.spring.data.jpa.service.EmployeeService;
 

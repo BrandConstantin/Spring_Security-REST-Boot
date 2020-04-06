@@ -22,6 +22,11 @@
 	</properties>
 
 	<dependencies>
+		<!-- add dependency for Spring Data REST -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
 		<dependency>
 			<!-- Hibernate ORM support -->
 			<groupId>org.springframework.boot</groupId>

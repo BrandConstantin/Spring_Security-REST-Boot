@@ -9,7 +9,7 @@
 		<version>2.2.6.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>es.rest.crud.api.hibernate</groupId>
+	<groupId>es.rest.crud.api.jpa</groupId>
 	<artifactId>1_CRUD_REST_API_withHibernate</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>1_CRUD_REST_API_withHibernate</name>

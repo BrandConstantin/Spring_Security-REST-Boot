@@ -9,21 +9,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.rest.crud.api.hibernate.dao.EmployeeDAO;
 import es.rest.crud.api.hibernate.entity.Employee;
+import es.rest.crud.api.hibernate.service.EmployeeService;
 
 @RestController
 @RequestMapping("/api")
 public class EmployeeRestController {
-	private EmployeeDAO employeeDAO;
+	private EmployeeService employeeService;
 	
-	// inject employee dao
 	@Autowired
-	public EmployeeRestController(EmployeeDAO theEmployeeDAO) {
-		employeeDAO = theEmployeeDAO;
+	public EmployeeRestController(EmployeeService theEmployeeService) {
+		employeeService = theEmployeeService;
 	}
 	
 	// expose "/employees" and return a list
 	@GetMapping("/employees")
 	public List<Employee> findAll(){
-		return employeeDAO.findAll();
+		return employeeService.findAll();
 	}
 }

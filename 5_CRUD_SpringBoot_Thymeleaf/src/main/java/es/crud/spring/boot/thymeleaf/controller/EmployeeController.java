@@ -8,6 +8,8 @@ import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import es.crud.spring.boot.thymeleaf.entity.Employee;
@@ -16,8 +18,9 @@ import es.crud.spring.boot.thymeleaf.service.EmployeeService;
 @Controller
 @RequestMapping("/employees")
 public class EmployeeController {
-	
+
 	private EmployeeService employeeService;
+
 	// the constructor for constructor injection
 	public EmployeeController(EmployeeService theEmployeeService) {
 		employeeService = theEmployeeService;
@@ -28,10 +31,29 @@ public class EmployeeController {
 	public String listEmployees(Model theModel) {
 		// get employees for db
 		List<Employee> theEmployees = employeeService.findAll();
-		
+
 		// add to the spring model
 		theModel.addAttribute("employees", theEmployees);
+
+		return "employees/list-employees";
+	}
+
+	// button to add
+	@GetMapping("/showFormForAdd")
+	public String showFormForAdd(Model theModel) {
+		// create model attribute to bind the form data
+		Employee theEmployee = new Employee();
+		theModel.addAttribute("employee", theEmployee);
+
+		return "employees/employee-form";
+	}
+
+	@PostMapping("/save")
+	public String saveEmployee(@ModelAttribute("employee") Employee theEmployee) {
+		// save the employee
+		employeeService.save(theEmployee);
 		
-		return "list-employees";
+		// use a redirect to prevent duplicate submissions
+		return "redirect:/employees/list";
 	}
 }
